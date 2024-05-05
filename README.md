@@ -9,14 +9,10 @@ Should you upload something in this project, like a microservice, please include
 An overview of all current and planned services is provided by the wiki and the "i40 demo.png". If you need to modify this graphical overview, you can use the corresponding .xml file. You can upload that file e.g. to draw.io or similar online services to make changes. Please remember to provide new .png (by exporting) and .xml (by saving) files of the updated versions.
 
 ### How to start from scratch
+- Install Node.js + express
+- Install mosquitto
+- Install XAMPP or similar
+- npm install each manager and service
 
-Install Node.js + express
-Install mosquitto
-Install XAMPP or similar
-npm install each manager and service
-cd Ordermanager & npm start
-http://localhost:3001/
 
-Create Ordermanager db:
-Start MySQL server
-Import Ordermanager\MYSQL_CREATE_DB_i40_orders.sql
+User Entry Point: Oderservice

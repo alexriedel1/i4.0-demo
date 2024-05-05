@@ -5,7 +5,8 @@ var conf = require('../config.json');
 var app = require('../app');
 var debug = require('debug')('app-website:server');
 var http = require('http');
-var io = require('socket.io');
+var server = http.createServer(app);
+var io = require('socket.io')(server);
 var ioClient = require('socket.io-client');
 
 var usermanager = require('../classes/usermanager.js');
@@ -23,7 +24,6 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
 var ios = io.listen(server);//extent server with web sockets functionality
 
 /**
