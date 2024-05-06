@@ -55,6 +55,10 @@ public class WorkflowEngineConnector {
 		  repositoryService = processEngine.getRepositoryService();
 		  runtimeService = processEngine.getRuntimeService();
 		  taskService = processEngine.getTaskService();
+
+		  repositoryService.createDeployment()
+		    .addClasspathResource("simple_cocktail_production.bpmn20.xml")
+		    .deploy();
 	}
 	
 	public void start(String processId)

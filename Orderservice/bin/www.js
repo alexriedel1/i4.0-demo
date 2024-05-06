@@ -16,6 +16,7 @@ var io = require('socket.io')(server);
 
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
+console.log("Running at localhost:", port)
 
 /**
  * Create HTTP server.
