@@ -61,13 +61,6 @@ public class WorkflowEngineConnector {
 		  Deployment deployment = repositoryService.createDeployment()
 		    .addClasspathResource("simple_cocktail_production.bpmn20.xml")
 		    .deploy();
-
-			ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-			.deploymentId(deployment.getId()).singleResult();
-		System.out.println(
-			"Found process definition [" 
-				+ processDefinition.getName() + "] with id [" 
-				+ processDefinition.getId() + "]");
 	}
 	
 	public void start(String processId)
@@ -99,11 +92,7 @@ public class WorkflowEngineConnector {
 			variables.put("productId", productId);
 			variables.put("orderData", jsonSpecification);
 			ProcessInstance instance = runtimeService.startProcessInstanceByKey(processId, variables);
-			System.out.println("Simple Cockatil process started with process instance id [" 
-								+ instance.getProcessInstanceId()
-								+ "] key [" + instance.getProcessDefinitionKey() + "]");
 			log.debug("process '"+processId+"' started... oder Data set");
-			log.debug("variables " + jsonSpecification);
 		}
 		else
 		{

@@ -7,9 +7,6 @@ $(document).ready(function(){
     
     // WebSocket connection...
     socket = io.connect();
-    socket.on("connect_error", err=> console.log(err))
-    socket.on("connect_failed", err=> console.log(err))
-    socket.on("error", err=> console.log(err))
 
     socket.on('connect', function(){
         console.log('web socket connection established');
