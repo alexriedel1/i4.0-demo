@@ -16,6 +16,8 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.task.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,9 +58,16 @@ public class WorkflowEngineConnector {
 		  runtimeService = processEngine.getRuntimeService();
 		  taskService = processEngine.getTaskService();
 
-		  repositoryService.createDeployment()
+		  Deployment deployment = repositoryService.createDeployment()
 		    .addClasspathResource("simple_cocktail_production.bpmn20.xml")
 		    .deploy();
+
+			ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+			.deploymentId(deployment.getId()).singleResult();
+		System.out.println(
+			"Found process definition [" 
+				+ processDefinition.getName() + "] with id [" 
+				+ processDefinition.getId() + "]");
 	}
 	
 	public void start(String processId)
@@ -86,12 +95,15 @@ public class WorkflowEngineConnector {
 		}
 		if(processId!=null && productId!=null)
 		{
-			log.debug("Strting process instance '"+processId+"' for productId '"+productId+"'");
 			HashMap<String, Object> variables = new HashMap<String, Object> ();
 			variables.put("productId", productId);
 			variables.put("orderData", jsonSpecification);
 			ProcessInstance instance = runtimeService.startProcessInstanceByKey(processId, variables);
+			System.out.println("Simple Cockatil process started with process instance id [" 
+								+ instance.getProcessInstanceId()
+								+ "] key [" + instance.getProcessDefinitionKey() + "]");
 			log.debug("process '"+processId+"' started... oder Data set");
+			log.debug("variables " + jsonSpecification);
 		}
 		else
 		{
@@ -103,7 +115,6 @@ public class WorkflowEngineConnector {
 	
 	public TaskList listCandidateGroup(String groupId)
 	{
-		
 		TaskList tasklist = new TaskList();
 		tasklist.setGroupId(groupId);
 		log.debug("fetching tasks for group: '"+groupId+"'");

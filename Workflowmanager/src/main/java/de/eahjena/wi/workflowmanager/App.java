@@ -118,7 +118,7 @@ public class App implements EventBusListener {
 	}
 
 	private void refreshCandidateTaskListUser(String userId) {
-		TaskList tasklist = workflowConnector.listCandidateUser(userId);
+		TaskList tasklist = workflowConnector.listCandidateGroup(userId);
 		tasklist.setUserId(userId);
 		String jsonStr = convertToJson(tasklist);
 		// send new version of tasklist to user
